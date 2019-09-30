@@ -1,3 +1,8 @@
+""" Assignment one: Game Basics: Cards and Hands
+    Author: Nicholas Noochla-or
+    Date: 9/28/2019
+"""
+
 from enum import Enum, auto
 
 class Card:
@@ -279,3 +284,17 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+"""
+ ------------------ run of Hand client --------------------------- 
+
+hand before deal
+	Hand = () 
+	num cards = 0
+
+hand after deal
+	Hand = (Three of Clubs ♣, Ten of Diamonds ♦, Nine of Hearts ♥, Ten of Clubs ♣, Ace of Spades ♠, Ace of Spades ♠) 
+	num cards = 6
+"""
