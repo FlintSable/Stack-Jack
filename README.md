@@ -1,2 +1,2 @@
-# card_game
-Python console card game
+# Blackjack Card Game
+Python console blackjack card game
