@@ -1,44 +1,48 @@
 from enum import Enum, auto
 
-class Card:
+# class ("static") members and indented constants
+class CardValue(Enum):
+    ACE = auto()
+    TWO = auto()
+    THREE = auto()
+    FOUR = auto()
+    FIVE = auto()
+    SIX = auto()
+    SEVEN = auto()
+    EIGHT = auto()
+    NINE = auto()
+    TEN = auto()
+    JACK = auto()
+    QUEEN = auto()
+    KING = auto()
 
-    # class ("static") members and indented constants
-    class CardValue(Enum):
-        ACE = auto()
-        TWO = auto()
-        THREE = auto()
-        FOUR = auto()
-        FIVE = auto()
-        SIX = auto()
-        SEVEN = auto()
-        EIGHT = auto()
-        NINE = auto()
-        TEN = auto()
-        JACK = auto()
-        QUEEN = auto()
-        KING = auto()
+    def __repr__(self):
+        ret_str = self.name[0].upper() + self.name[1:].lower()
+        return ret_str
 
-        def __repr__(self):
-            ret_str = self.name[0].upper() + self.name[1:].lower()
-            return ret_str
+    def __str__(self):
+        ret_str = self.name[0].upper() + self.name[1:].lower()
+        return ret_str
 
-        def __str__(self):
-            ret_str = self.name[0].upper() + self.name[1:].lower()
-            return ret_str
+class CardSuit(Enum):
+    SPADES = auto()
+    HEARTS = auto()
+    DIAMONDS = auto()
+    CLUBS = auto()
+    __value = 0
+    __suit = 0
+    __error_flag = 0
 
-    class CardSuit(Enum):
-        SPADES = auto()
-        HEARTS = auto()
-        DIAMONDS = auto()
-        CLUBS = auto()
+    DEFAULT_VAL = CardValue.ACE
+    DEFAULT_SUIT = CardSuit.SPADES
 
-        def __repr__(self):
-            ret_srt = self.name[0].upper() + self.name[1:].lower()
-            return ret_srt
+    def __repr__(self):
+        ret_srt = self.name[0].upper() + self.name[1:].lower()
+        return ret_srt
 
-        def __str__(self):
-            ret_srt = self.name[0].upper() + self.name[1:].lower()
-            return ret_srt
+    def __str__(self):
+        ret_srt = self.name[0].upper() + self.name[1:].lower()
+        return ret_srt
 
     def set(self, val, suit):
         # set the error flag to 1 if there is a problem with input
@@ -121,14 +125,8 @@ class Card:
             return True
         else:
             return False
-        
 
 
-    DEFAULT_VAL = CardValue.ACE
-    DEFAULT_SUIT = CardSuit.SPADES
-    __value = 0
-    __suit = 0
-    __error_flag = 0
 
     def __init__(self, val=DEFAULT_VAL, suit=DEFAULT_SUIT):
         # print((type(val) == str or type(val) == int) and (type(suit) == str))
@@ -172,6 +170,12 @@ class Card:
         if(self.__error_flag == 1):
             ret_str = "** illegal **"
         return ret_str
+        
+class Card:
+    def __init__(self):
+        print("card needs a value and suit")
+        self._suit = CardSuit()
+        pass
 
 
 def main():
