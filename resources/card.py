@@ -33,12 +33,10 @@ class CardSuit(Enum):
     __suit = 0
     __error_flag = 0
 
-    DEFAULT_VAL = CardValue.ACE
-    DEFAULT_SUIT = CardSuit.SPADES
 
     def __repr__(self):
-        ret_srt = self.name[0].upper() + self.name[1:].lower()
-        return ret_srt
+        return_str = self.name[0].upper() + self.name[1:].lower()
+        return return_str
 
     def __str__(self):
         ret_srt = self.name[0].upper() + self.name[1:].lower()
