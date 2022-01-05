@@ -24,9 +24,9 @@ class CardValue(Enum):
         return ret_str
 
 class CardSuit(Enum):
-    SPADES = auto()
+    SPADES = "♠"
     HEARTS = "♥"
-    DIAMONDS = auto()
+    DIAMONDS = "♦"
     CLUBS = "♣"
 
     # def __repr__(self):
@@ -70,36 +70,30 @@ class Card:
         self._suit = card_suit
         self._value = card_value
 
+    @property
+    def suit(self):
+        return (self._suit.name, self._suit.value)
+
+    @property
+    def value(self):
+        return self._value
+
+    @property
+    def card(self):
+        return (self.value, self.suit)
+
+    # maybe it does make sense to return a graphic card here
     def __str__(self):
-        return f"card - suit: {self._suit.name} value: {self._value}"
+        return str((self._suit.name, self._suit.value, self._value))\
 
 def main():
     # card test 1
     cardtest1 = Card(CardSuit.CLUBS, CardValue.ACE)
-    print(cardtest1)
-
-    # test 2
-    # test2 = Card(2, "Bats")
-    # print(test2.get_val())
-    # print(test2.get_suit())
-    # print(test2.get_error_flag())
-    # print(test2)
-
-    # test2.set(2, "Diamonds")
-    # print(test2.get_val())
-    # print(test2.get_suit())
-    # print(test2.get_error_flag())
-    # print(test2)
-
-    # print(Card.valid_card(2, "Diamonds"))
+    print(cardtest1.suit)
+    print(cardtest1.value)
+    print(cardtest1.card)
 
 
-    # test 3
-    # test3 = Card("ten", "Hearts")
-    # print(test3.get_val())
-    # print(test3.get_suit())
-    # print(test3.get_error_flag())
-    # print(test3)
 
 if __name__ == "__main__":
     main()
