@@ -65,32 +65,32 @@ class CardSuit(Enum):
     #     return ret_str
         
 class Card:
-    def __init__(self, card_suit, card_value):
+    def __init__(self, card_suit, card_rank):
         print("card needs a value and suit")
         self._suit = card_suit
-        self._value = card_value
+        self._rank = card_rank
 
     @property
     def suit(self):
         return (self._suit.name, self._suit.value)
 
     @property
-    def value(self):
-        return self._value
+    def rank(self):
+        return self._rank
 
     @property
     def card(self):
-        return (self.value, self.suit)
+        return (self.rank, self.suit)
 
     # maybe it does make sense to return a graphic card here
     def __str__(self):
-        return str((self._suit.name, self._suit.value, self._value))\
+        return str((self._suit.name, self._suit.rank, self._value))\
 
 def main():
     # card test 1
     cardtest1 = Card(CardSuit.CLUBS, CardValue.ACE)
     print(cardtest1.suit)
-    print(cardtest1.value)
+    print(cardtest1.rank)
     print(cardtest1.card)
 
 
