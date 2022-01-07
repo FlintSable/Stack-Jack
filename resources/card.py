@@ -65,33 +65,56 @@ class CardSuit(Enum):
     #     return ret_str
         
 class Card:
-    def __init__(self, card_suit, card_value):
+    def __init__(self, card_suit, card_rank):
         print("card needs a value and suit")
         self._suit = card_suit
-        self._value = card_value
+        self._rank = card_rank
+        self._face = 1 # 1 enables the face of the card, 0 is the backsides
 
     @property
     def suit(self):
-        return (self._suit.name, self._suit.value)
+        return self._suit.value
 
     @property
-    def value(self):
-        return self._value
+    def rank(self):
+        return self._rank.value
 
     @property
     def card(self):
-        return (self.value, self.suit)
+        return (self.rank, self.suit)
+
+    @property
+    def display_card(self):
+        # output the graphical output
+        display_array = [''] * 4
+        display_array[0] += '  ___ \n'
+        if self._face == 1:
+            display_array[1] += '|{} | \n'.format(str(self.rank).ljust(2))
+            display_array[2] += '| {} | \n'.format(self.suit)
+            display_array[3] += '|_{}| \n'.format(str(self.rank).rjust(2, '_'))
+
+            # output the face of the car
+        elif self._face == 0:
+            pass
+            # check if back side or front side
+        return ' '.join(display_array)
+
+    def flip(self):
+        # flip the card
+        pass
 
     # maybe it does make sense to return a graphic card here
     def __str__(self):
-        return str((self._suit.name, self._suit.value, self._value))\
+        return str((self._suit.name, self._suit.rank, self._value))\
 
 def main():
     # card test 1
-    cardtest1 = Card(CardSuit.CLUBS, CardValue.ACE)
+    cardtest1 = Card(CardSuit.CLUBS, CardValue.TEN)
     print(cardtest1.suit)
-    print(cardtest1.value)
+    print(cardtest1.rank)
     print(cardtest1.card)
+    print(cardtest1.display_card)
+
 
 
 
