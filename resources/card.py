@@ -88,6 +88,7 @@ class Card:
         # output the graphical output
         display_array = [''] * 4
         display_array[0] += '  ___ \n'
+        # print(self._face)
         if self._face == 1:
             display_array[1] += '|{} | \n'.format(str(self.rank).ljust(2))
             display_array[2] += '| {} | \n'.format(self.suit)
@@ -95,13 +96,15 @@ class Card:
 
             # output the face of the car
         elif self._face == 0:
-            pass
-            # check if back side or front side
+            display_array[1] += '|{}  | \n'.format("#")
+            display_array[2] += '| {} | \n'.format("~")
+            display_array[3] += '|_ {}| \n'.format("#")
         return ' '.join(display_array)
 
     def flip(self):
         # flip the card
-        pass
+        self._face = 0
+        print(self._face)
 
     # maybe it does make sense to return a graphic card here
     def __str__(self):
@@ -113,6 +116,8 @@ def main():
     print(cardtest1.suit)
     print(cardtest1.rank)
     print(cardtest1.card)
+    print(cardtest1.display_card)
+    cardtest1.flip()
     print(cardtest1.display_card)
 
 
