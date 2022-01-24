@@ -1,5 +1,25 @@
 from enum import Enum, auto
 
+class Node:
+    def __init__(self):
+        self._next = None
+    
+    def insert_after(self, new_node):
+        if not isinstance(new_node, Node):
+            raise TypeError("new_node should be a Node")
+        new_node._next = self._next
+        self._next = new_node
+    
+    def remove_after(self):
+        tmp = self._next
+        if tmp:
+            self._next = tmp._next
+            tmp._netx = None
+        return tmp
+    
+    def __str__(self):
+        return f"id={id(self):#x}"
+
 class CardValue(Enum):
     ACE = auto()
     TWO = auto()
@@ -28,41 +48,6 @@ class CardSuit(Enum):
     HEARTS = "♥"
     DIAMONDS = "♦"
     CLUBS = "♣"
-
-    # def __repr__(self):
-    #     if(str(self.get_suit()) == 'Hearts'):
-    #         ret_utf = "♥"
-    #     elif(str(self.get_suit()) == 'Clubs'):
-    #         ret_utf = "♣"
-    #     elif(str(self.get_suit()) == 'Spades'):
-    #         ret_utf = "♠"
-    #     elif(str(self.get_suit()) == 'Diamonds'):
-    #         ret_utf = "♦"
-    #     else:
-    #         ret_utf = 'null'
-
-    #     ret_str = f'{self.get_val()} of {self.get_suit()} {ret_utf}' 
-    #     if(self.__error_flag == 1):
-    #         ret_str = "** illegal **"
-    #     return ret_str
-
-
-    # def __str__(self):
-    #     if(str(self.get_suit()) == 'Hearts'):
-    #         ret_utf = "♥"
-    #     elif(str(self.get_suit()) == 'Clubs'):
-    #         ret_utf = "♣"
-    #     elif(str(self.get_suit()) == 'Spades'):
-    #         ret_utf = "♠"
-    #     elif(str(self.get_suit()) == 'Diamonds'):
-    #         ret_utf = "♦"
-    #     else:
-    #         ret_utf = 'null'
-
-    #     ret_str = f'{self.get_val()} of {self.get_suit()} {ret_utf}' 
-    #     if(self.__error_flag == 1):
-    #         ret_str = "** illegal **"
-    #     return ret_str
         
 class Card:
     def __init__(self, card_suit, card_rank):
@@ -70,6 +55,8 @@ class Card:
         self._suit = card_suit
         self._rank = card_rank
         self._face = 1 # 1 enables the face of the card, 0 is the backsides
+        # self._next = None
+        # self._prev = None
 
     @property
     def suit(self):
