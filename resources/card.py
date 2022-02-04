@@ -1,15 +1,32 @@
 from enum import Enum, auto
 
 class Node:
-    def __init__(self):
+    def __init__(self, data):
         self._next = None
-    
+        self._data = data
+
     def insert_after(self, new_node):
         if not isinstance(new_node, Node):
             raise TypeError("new_node should be a Node")
         new_node._next = self._next
         self._next = new_node
     
+    @property
+    def data(self):
+        return self._data
+    
+    @data.setter
+    def data(self, data):
+        self._data = data
+
+    @property
+    def next(self):
+        return self._next
+
+    @next.setter
+    def next(self, next_val):
+        self._next = next_val
+
     def remove_after(self):
         tmp = self._next
         if tmp:
