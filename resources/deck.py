@@ -1,7 +1,8 @@
 """
 This class will represent a deck of cards
 """
-from card import Card, Node
+import random
+from card import Card, CardSuit, CardValue,Node
 
 
 # maybe implement a queue with a linked list
@@ -23,14 +24,22 @@ class Stack:
         node = self.top
         return_str = ""
         while node is not None:
+            # return_str += str(node.data.suit)
             return_str += str(node)
             node = node.next
+
         return return_str
 
-class Deck:
-    def __init__(Stack):
+class Deck(Stack):
+    def __init__(self):
+        Stack.__init__(self)
+        n1 = Node(Card(CardSuit.SPADES, CardValue.FIVE))
+        n2 = Node(Card(CardSuit.SPADES, CardValue.FIVE))
+
         # instantiage whole deck of cards
         # 52 cards in a deck = 52 Nodes with different suits
+        self.push(n1)
+        self.push(n2)
 
         # 13 cards in a suit
         # create 4 lists of 13 cards, jumble them
@@ -51,7 +60,9 @@ class Deck:
 
 
 def main():
-    pass
+    
+    new_deck = Deck()
+    print("deck: ", new_deck)
 
 
 if __name__ == "__main__":
