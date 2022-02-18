@@ -68,7 +68,7 @@ class CardSuit(Enum):
         
 class Card:
     def __init__(self, card_suit, card_rank):
-        print("card needs a value and suit")
+        # print("card needs a value and suit")
         self._suit = card_suit
         self._rank = card_rank
         self._face = 1 # 1 enables the face of the card, 0 is the backsides
