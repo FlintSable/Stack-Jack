@@ -57,13 +57,18 @@ class Deck(Stack):
         clubs_cards = [Node(Card(x,CardSuit.CLUBS)) for x in cardvalues]
         predeck = spade_cards + heart_cards + diamond_cards + clubs_cards
 
-        for x in predeck:
-            print(x.data.card)
+        # for x in predeck:
+        #     print(x.data.card)
 
         print("break")
         for x in random.sample(predeck, len(predeck)):
+            self.push(x)
             print(x.data.card)
-        # self.push(n1)
+        
+        print("top: ")
+        print(self.top.data.card)
+        print("next: ")
+        print(self.top.next.data.card)
         # self.push(n2)
 
         # 13 cards in a suit
@@ -86,7 +91,7 @@ class Deck(Stack):
 def main():
     
     new_deck = Deck()
-    print("deck: ", new_deck)
+    # print("deck: ", new_deck)
 
 
 if __name__ == "__main__":
