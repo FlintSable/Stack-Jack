@@ -33,8 +33,8 @@ class Stack:
 class Deck(Stack):
     def __init__(self):
         Stack.__init__(self)
-        n1 = Node(Card(CardSuit.SPADES, CardValue.FIVE))
-        n2 = Node(Card(CardSuit.SPADES, CardValue.FIVE))
+        # n1 = Node(Card(CardSuit.SPADES, CardValue.FIVE))
+        # n2 = Node(Card(CardSuit.SPADES, CardValue.FIVE))
 
         # instantiage whole deck of cards
         # 52 cards in a deck = 52 Nodes with different suits
