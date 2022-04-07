@@ -23,7 +23,7 @@ class player_standard(player): # player - standard
 
 
 class player_dealer(player): # player - dealer
-    def __init__(self, name="Dealer"):
+    def __init__(self, name="Dealer", table_players=[]):
         player.__init__(self, name)
         # print(name)
         new_deck = Deck()
@@ -43,6 +43,8 @@ def main():
     p1 = player_standard()
     p2 = player_standard()
     blackjack_dealer = player_dealer()
+
+    # dealer takes an argument of type array of all players playing
 
 
 if __name__ == "__main__":
