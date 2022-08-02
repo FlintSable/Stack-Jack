@@ -2,11 +2,9 @@
 This class will represent a deck of cards
 """
 import random
-from card import Card, CardSuit, CardValue,Node
+from card import Card, CardSuit, CardValue, Node
 
 
-# maybe implement a queue with a linked list
-# class LinkedList:
 #     def __init__(self):
 #         self.head = Node()
 class Stack:
