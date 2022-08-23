@@ -28,13 +28,13 @@ class player_dealer(player): # player - dealer
         # print(name)
         new_deck = Deck()
     
+        # this role is almost like a game class
         # controls house hand
         # deal to all players and self
         # keeps track of turns
         # 
         # get next move from player
         # show cards
-    pass
 
 
 
