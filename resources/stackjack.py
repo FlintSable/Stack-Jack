@@ -3,6 +3,7 @@
 from deck import *
 import random
 # from abc import ABC, abstractmethod
+# this file should probably have the StackJack game class
 
 class player(Stack):
     def __init__(self, name):

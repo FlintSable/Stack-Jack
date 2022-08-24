@@ -1,4 +1,4 @@
-import resources.stackjack 
+import resources.stackjack
 
 def main():
 
