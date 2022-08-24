@@ -5,7 +5,7 @@ import random
 # from abc import ABC, abstractmethod
 # this file should probably have the StackJack game class
 
-class player(Stack):
+class Player(Stack):
     def __init__(self, name):
         self._name = name
         Stack.__init__(self)
@@ -15,19 +15,19 @@ class player(Stack):
     def name(self):
         return self._name
 
-class player_standard(player): # player - standard
+class PlayerStandard(Player): # player - standard
     def __init__(self, name="player_"):
         if name == "player_":
             name += str(random.randint(1,100))
-        player.__init__(self, name)
+        Player.__init__(self, name)
         # print(name)
 
 
-class player_dealer(player): # player - dealer
+class PlayerDealer(Player): # player - dealer
     def __init__(self, name="Dealer", table_players=[]):
-        player.__init__(self, name)
+        Player.__init__(self, name)
         # print(name)
-        new_deck = Deck()
+        # new_deck = Deck()
     
         # this role is almost like a game class
         # controls house hand
@@ -37,13 +37,17 @@ class player_dealer(player): # player - dealer
         # get next move from player
         # show cards
 
-
+class StackJack():
+    def __init__(self):
+        self._deck = Deck()
+        self._dealer = PlayerDealer()
+        self._tablePlayers = []
 
 def main():
     
-    p1 = player_standard()
-    p2 = player_standard()
-    blackjack_dealer = player_dealer()
+    p1 = PlayerStandard()
+    p2 = PlayerStandard()
+    blackjack_dealer = PlayerDealer()
 
     # dealer takes an argument of type array of all players playing
 
