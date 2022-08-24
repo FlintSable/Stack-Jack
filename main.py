@@ -1,4 +1,4 @@
-import resources.blackjack 
+import resources.stackjack 
 
 def main():
 
