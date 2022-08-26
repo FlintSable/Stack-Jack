@@ -37,17 +37,18 @@ class PlayerDealer(Player): # player - dealer
         # get next move from player
         # show cards
 
-class StackJack():
-    def __init__(self):
+class StackJack:
+    def __init__(self, tablePlayers):
         self._deck = Deck()
         self._dealer = PlayerDealer()
-        self._tablePlayers = []
+        self._tablePlayers = tablePlayers
 
 def main():
     
     p1 = PlayerStandard()
     p2 = PlayerStandard()
     blackjack_dealer = PlayerDealer()
+    start_game = StackJack()
 
     # dealer takes an argument of type array of all players playing
 
