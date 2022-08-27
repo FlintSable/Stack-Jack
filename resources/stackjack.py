@@ -20,7 +20,7 @@ class PlayerStandard(Player): # player - standard
         if name == "player_":
             name += str(random.randint(1,100))
         Player.__init__(self, name)
-        # print(name)
+        # player needs hond
 
 
 class PlayerDealer(Player): # player - dealer
@@ -45,10 +45,10 @@ class StackJack:
 
 def stack_jack_game(playerList):
     current_player = playerList[0]
-    start_game = StackJack()
-    init_dealer = PlayerDealer()
+    start_game = StackJack(playerList)
+    # init_dealer = PlayerDealer()
     print("stack jack game starting")
-    print(init_dealer)
+
 
     while True:
         try:
