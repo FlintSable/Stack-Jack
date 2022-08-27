@@ -20,7 +20,7 @@ class PlayerStandard(Player): # player - standard
         if name == "player_":
             name += str(random.randint(1,100))
         Player.__init__(self, name)
-        # print(name)
+        # player needs hond
 
 
 class PlayerDealer(Player): # player - dealer
@@ -43,12 +43,36 @@ class StackJack:
         self._dealer = PlayerDealer()
         self._tablePlayers = tablePlayers
 
+def stack_jack_game(playerList):
+    current_player = playerList[0]
+    start_game = StackJack(playerList)
+    # init_dealer = PlayerDealer()
+    print("stack jack game starting")
+
+
+    while True:
+        try:
+            print("try some stuff")
+        except(ValueError, IndexError) as e:
+            print(e)
+            continue
+        print("print something")
+
+        # check for winner
+        # if draw or out of cards break
+        # elif no winner yet, run next round
+        # else if winner break
+
+    # return the winner
+
+
 def main():
     
     p1 = PlayerStandard()
     p2 = PlayerStandard()
-    blackjack_dealer = PlayerDealer()
-    start_game = StackJack()
+    current_players = [p1, p2]
+    stack_jack_game(current_players)
+
 
     # dealer takes an argument of type array of all players playing
 
