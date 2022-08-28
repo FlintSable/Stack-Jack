@@ -58,21 +58,16 @@ class Deck(Stack):
         # for x in predeck:
         #     print(x.data.card)
 
-        print("break")
+        print("putting cards into deck: ")
         for x in random.sample(predeck, len(predeck)):
             self.push(x)
             print(x.data.card)
         
+        # just takeing a look at the data, data is still in stack
         print("top: ")
         print(self.top.data.card)
         print("next: ")
         print(self.top.next.data.card)
-        # self.push(n2)
-
-        # 13 cards in a suit
-        # create 4 lists of 13 cards, jumble them
-        # push them one list at a time to the stack
-        # then deck will be full
 
 
     def gen_hearts():
@@ -89,6 +84,8 @@ class Deck(Stack):
 def main():
     
     new_deck = Deck()
+
+    # prints stack deck, not legible
     # print("deck: ", new_deck)
 
 
