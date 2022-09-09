@@ -10,6 +10,7 @@ class Player(Hand):
     def __init__(self, name):
         Hand.__init__(self)
         self._name = name
+        self._hand = Hand()
         
         # Stack.__init__(self)
         # maybe put the hand up here, does not need to be a stack
@@ -17,6 +18,14 @@ class Player(Hand):
     @property
     def name(self):
         return self._name
+    
+    @property
+    def player_hand(self):
+        return self._hand
+    
+    @player_hand.setter
+    def player_hand(self, card):
+        self._hand.push(card)
 
 class PlayerStandard(Player): # player - standard
     def __init__(self, name="player_"):
@@ -63,6 +72,7 @@ class StackJack:
         self._table_players = tablePlayers
         self._dealer = PlayerDealer(self.deck, self._table_players, name="Delone")
 
+
     @property
     def deck(self):
         return self._deck
@@ -80,13 +90,17 @@ class StackJack:
         self._table_players = tablePlayers
 
     def dealer_deal(self):
-        self._dealer.deal
+        for x in self.table_players:
+            x.player_hand = self.deck.pop
+            x.player_hand = self.deck.pop
+            print(f"{x.name} hand: " + str(x.player_hand.get_card_count()))
+        # self._dealer.deal
     
 
 def stack_jack_game(playerList):
     # current_player = playerList[0]
     start_game = StackJack(playerList)
-    print(start_game.deck.pop().data.card)
+    start_game.dealer_deal()
 
     
 
