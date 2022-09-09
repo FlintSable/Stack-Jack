@@ -22,6 +22,9 @@ class Hand:
     def get_hand(self):
         return tuple(self.__my_cards)
     
+    def push(self, card):
+        self.__my_cards.append(card)
+    
     def get_card_count(self):
         return len(self.__my_cards)
 
