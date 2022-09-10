@@ -1,11 +1,27 @@
 from card import Card
+from enum import Enum
 
+class HandState(Enum):
+    READY = 1
+    STACKJACK = 2
+    BUST = 3
 
 class Hand:
+    MAX_CARDS_PER_HAND = 10
+    def __init__(self):
+        self._state = HandState.READY
+        __my_cards = []
+        __num_cards = len(__my_cards)
+    
 
-    MAX_CARDS_PER_HAND = 50
-    __my_cards = []
-    __num_cards = len(__my_cards)
+    @property
+    def state(self):
+        # returns bust if over 21
+        # returns ready for hand that can hit
+        # returns stackjack if 21
+        pass
+
+    # put logic for calculating the hand in the hand class
 
     def reset_hand(self):
         self.__my_cards = []
@@ -19,8 +35,13 @@ class Hand:
     def play_card(self):
         return self.__my_cards.pop(0)
     
+    @property
     def get_hand(self):
         return tuple(self.__my_cards)
+
+    @property    
+    def cal_hand_value(self):
+        pass
     
     def push(self, card):
         self.__my_cards.append(card)
@@ -33,6 +54,13 @@ class Hand:
             return (self.__my_cards[card_number])
         else: 
             return(self.__my_cards[card_number])
+    
+    @property
+    def display_hand(self):
+        display_array = []
+        for card in self.get_hand:
+            display_array += card.display_card
+        return ''.join(display_array)
 
             
 
