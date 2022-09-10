@@ -61,13 +61,13 @@ class Deck(Stack):
         print("putting cards into deck: ")
         for x in random.sample(predeck, len(predeck)):
             self.push(x)
-            print(x.data.card)
+            # print(x.data.card)
         
         # just takeing a look at the data, data is still in stack
-        print("top: ")
-        print(self.top.data.card)
-        print("next: ")
-        print(self.top.next.data.card)
+        # print("top: ")
+        # print(self.top.data.card)
+        # print("next: ")
+        # print(self.top.next.data.card)
 
 
     def gen_hearts():

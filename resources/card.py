@@ -96,7 +96,10 @@ class Card:
         # print(self._face)
         if self._face == 1:
             display_array[1] += '|{} | \n'.format(str(self.rank).ljust(2))
-            display_array[2] += '| {} | \n'.format(self.suit)
+            if self.suit >= 10:
+                display_array[2] += '| {}| \n'.format(self.suit)
+            else:
+                display_array[2] += '| {} | \n'.format(self.suit)
             display_array[3] += '|_{}| \n'.format(str(self.rank).rjust(2, '_'))
 
             # output the face of the car

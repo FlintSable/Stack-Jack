@@ -88,6 +88,7 @@ class StackJack:
     @property
     def table_players(self):
         return self._table_players
+
     
     @table_players.setter
     def table_players(self,tablePlayers):
@@ -96,29 +97,24 @@ class StackJack:
     def dealer_deal(self):
         self.dealer.player_hand = self.deck.pop().data
         self.dealer.player_hand = self.deck.pop().data
-        print(self.dealer.player_hand.get_hand()[0].flip())
-        print(self.dealer.player_hand.get_hand()[0].display_card)
-        print(self.dealer.player_hand.get_hand()[1].display_card)
+        print(self.dealer.player_hand.get_hand[0].flip())
+        print(self.dealer.player_hand.display_hand)
 
 
         for x in self.table_players:
             x.player_hand = self.deck.pop().data
             x.player_hand = self.deck.pop().data
             print(f"{x.name} hand: " + str(x.player_hand.get_card_count()))
-            print(f"{x.name} hand: " + str(x.player_hand.get_hand()[0].card))
-            print(f"{x.name} hand: " + str(x.player_hand.get_hand()[1].card))
-            print(x.player_hand.get_hand()[0].display_card)
-            print(x.player_hand.get_hand()[1].display_card)
+            print(f"{x.name} hand: " + str(x.player_hand.get_hand[0].card))
+            print(f"{x.name} hand: " + str(x.player_hand.get_hand[1].card))
+            print(x.player_hand.display_hand)
 
-
-
-        # self._dealer.deal
     
 
 def stack_jack_game(playerList):
     # current_player = playerList[0]
     start_game = StackJack(playerList)
-    start_game.dealer_deal()
+    
 
     
 
@@ -126,6 +122,8 @@ def stack_jack_game(playerList):
     while True:
         try:
             print("stack jack game starting")
+            start_game.dealer_deal()
+
             break
         except(ValueError, IndexError) as e:
             print(e)
@@ -143,8 +141,8 @@ def stack_jack_game(playerList):
 def main():
     
     p1 = PlayerStandard("Jeff-p1")
-    p2 = PlayerStandard("Sara-p2")
-    current_players = [p1, p2]
+    # p2 = PlayerStandard("Sara-p2")
+    current_players = [p1]
     stack_jack_game(current_players)
 
 
