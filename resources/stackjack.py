@@ -91,9 +91,17 @@ class StackJack:
 
     def dealer_deal(self):
         for x in self.table_players:
-            x.player_hand = self.deck.pop
-            x.player_hand = self.deck.pop
+            x.player_hand = self.deck.pop()
+            x.player_hand = self.deck.pop()
             print(f"{x.name} hand: " + str(x.player_hand.get_card_count()))
+            print(f"{x.name} hand: " + str(x.player_hand.get_hand()[0].data.card))
+            print(f"{x.name} hand: " + str(x.player_hand.get_hand()[1].data.card))
+            print(x.player_hand.get_hand()[0].data.display_card)
+
+            print(x.player_hand.get_hand()[1].data.display_card)
+
+
+
         # self._dealer.deal
     
 
