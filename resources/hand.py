@@ -18,7 +18,7 @@ class Hand:
     
     def play_card(self):
         return self.__my_cards.pop(0)
-        
+    
     def get_hand(self):
         return tuple(self.__my_cards)
     
@@ -29,7 +29,7 @@ class Hand:
         return len(self.__my_cards)
 
     def inspect_card(self, card_number):
-        if(self.__my_cards[card_number].get_error_flag() == 0):
+        if(self.__my_cards[card_number] == 0):
             return (self.__my_cards[card_number])
         else: 
             return(self.__my_cards[card_number])

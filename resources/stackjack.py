@@ -76,6 +76,10 @@ class StackJack:
     @property
     def deck(self):
         return self._deck
+    
+    @property
+    def dealer(self):
+        return self._dealer
 
     @deck.setter
     def deck(self, newdeck):
@@ -90,15 +94,21 @@ class StackJack:
         self._table_players = tablePlayers
 
     def dealer_deal(self):
-        for x in self.table_players:
-            x.player_hand = self.deck.pop()
-            x.player_hand = self.deck.pop()
-            print(f"{x.name} hand: " + str(x.player_hand.get_card_count()))
-            print(f"{x.name} hand: " + str(x.player_hand.get_hand()[0].data.card))
-            print(f"{x.name} hand: " + str(x.player_hand.get_hand()[1].data.card))
-            print(x.player_hand.get_hand()[0].data.display_card)
+        self.dealer.player_hand = self.deck.pop().data
+        self.dealer.player_hand = self.deck.pop().data
+        print(self.dealer.player_hand.get_hand()[0].flip())
+        print(self.dealer.player_hand.get_hand()[0].display_card)
+        print(self.dealer.player_hand.get_hand()[1].display_card)
 
-            print(x.player_hand.get_hand()[1].data.display_card)
+
+        for x in self.table_players:
+            x.player_hand = self.deck.pop().data
+            x.player_hand = self.deck.pop().data
+            print(f"{x.name} hand: " + str(x.player_hand.get_card_count()))
+            print(f"{x.name} hand: " + str(x.player_hand.get_hand()[0].card))
+            print(f"{x.name} hand: " + str(x.player_hand.get_hand()[1].card))
+            print(x.player_hand.get_hand()[0].display_card)
+            print(x.player_hand.get_hand()[1].display_card)
 
 
 
