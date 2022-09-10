@@ -88,6 +88,7 @@ class Card:
         return (self.rank, self.suit)
 
     @property
+    # not an method anymore, its a class attribute access like Card.display_card
     def display_card(self):
         # output the graphical output
         display_array = [''] * 4
@@ -112,7 +113,7 @@ class Card:
 
     # maybe it does make sense to return a graphic card here
     def __str__(self):
-        return str((self._suit.name, self._suit.rank, self._value))\
+        return str((self._suit.name, self.rank))\
 
 def main():
     # card test 1
