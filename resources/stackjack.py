@@ -104,7 +104,7 @@ class StackJack:
         for x in self.table_players:
             x.player_hand = self.deck.pop().data
             x.player_hand = self.deck.pop().data
-            print(f"{x.name} hand: " + str(x.player_hand.get_card_count()))
+            print(f"{x.name} card count: " + str(x.player_hand.get_card_count()))
             print(f"{x.name} hand: " + str(x.player_hand.get_hand[0].card))
             print(f"{x.name} hand: " + str(x.player_hand.get_hand[1].card))
             print(x.player_hand.display_hand)
