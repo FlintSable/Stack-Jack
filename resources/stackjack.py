@@ -1,7 +1,8 @@
 # this is the game class - game needs:
     # deck
+from secrets import choice
 from deck import *
-from hand import Hand
+from hand import Hand, HandState
 import random
 # from abc import ABC, abstractmethod
 # this file should probably have the StackJack game class
@@ -80,7 +81,7 @@ class StackJack:
     @property
     def dealer(self):
         return self._dealer
-
+    
     @deck.setter
     def deck(self, newdeck):
         self._deck = newdeck
@@ -89,16 +90,30 @@ class StackJack:
     def table_players(self):
         return self._table_players
 
-    
     @table_players.setter
     def table_players(self,tablePlayers):
         self._table_players = tablePlayers
+
+    def check_state(self, player_hand):
+        return player_hand.state
+
+    @property
+    def hit(self):
+        return self.deck.pop().data
+    
+    def choice_menu(self):
+        menu_select = int(input("Enter choice: \n 1 - Hit\n 2 - Stay\n"))
+        return menu_select
+
+
+
 
     def dealer_deal(self):
         self.dealer.player_hand = self.deck.pop().data
         self.dealer.player_hand = self.deck.pop().data
         print(self.dealer.player_hand.get_hand[0].flip())
         print(self.dealer.player_hand.display_hand)
+        # print(self.dealer.player_hand.state)
 
 
         for x in self.table_players:
@@ -108,22 +123,41 @@ class StackJack:
             print(f"{x.name} hand: " + str(x.player_hand.get_hand[0].card))
             print(f"{x.name} hand: " + str(x.player_hand.get_hand[1].card))
             print(x.player_hand.display_hand)
+            print(x.player_hand.cal_hand_value)
+
 
     
 
 def stack_jack_game(playerList):
     # current_player = playerList[0]
-    start_game = StackJack(playerList)
-    
-
-    
-
-
+    active_game = StackJack(playerList)
     while True:
         try:
             print("stack jack game starting")
-            start_game.dealer_deal()
+            active_game.dealer_deal()
+            for x in playerList:
+                # x_player_hand_state = active_game.check_state(x.player_hand)
+                # print(x_player_hand_state)
+                while active_game.check_state(x.player_hand) == HandState.READY:
+                    option = active_game.choice_menu()
+                    if option == 1:
+                        print(f"{x.name} card count: " + str(x.player_hand.get_card_count()))
+                        x.player_hand = active_game.hit
+                        print(f"{x.name} card count: " + str(x.player_hand.get_card_count()))
+                        print(x.player_hand.display_hand)
+                        print(x.player_hand.cal_hand_value)
+                    elif option == 2:
+                        x.player_hand.state = HandState.STAY
+                        print(x.player_hand.state)
 
+
+                    
+
+
+            # check player hand
+            # if Stackjack then win
+            # elif state ready then request move
+            # elif state bust then player loss, round over
             break
         except(ValueError, IndexError) as e:
             print(e)

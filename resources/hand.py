@@ -5,6 +5,7 @@ class HandState(Enum):
     READY = 1
     STACKJACK = 2
     BUST = 3
+    STAY = 4
 
 class Hand:
     MAX_CARDS_PER_HAND = 10
@@ -16,12 +17,19 @@ class Hand:
 
     @property
     def state(self):
-        # returns bust if over 21
-        # returns ready for hand that can hit
-        # returns stackjack if 21
-        pass
-
-    # put logic for calculating the hand in the hand class
+        if(self.cal_hand_value > 21):
+            return HandState.BUST
+        elif(self.cal_hand_value < 21):
+            return HandState.READY
+        elif(self.cal_hand_value == 21):
+            return HandState.STACKJACK
+    
+    @state.setter
+    def state(self, newstate):
+        print(newstate)
+        self._state = newstate
+        print(self._state)
+        return newstate
 
     def reset_hand(self):
         self.__my_cards = []
@@ -32,16 +40,14 @@ class Hand:
         else:
             self.__my_cards.append(card)
     
-    def play_card(self):
-        return self.__my_cards.pop(0)
-    
     @property
     def get_hand(self):
         return tuple(self.__my_cards)
 
     @property    
     def cal_hand_value(self):
-        pass
+        return sum([card_value.suit for card_value in self.get_hand])
+
     
     def push(self, card):
         self.__my_cards.append(card)
