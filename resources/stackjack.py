@@ -1,5 +1,7 @@
 # this is the game class - game needs:
     # deck
+import enum
+from re import T
 from secrets import choice
 from deck import *
 from hand import Hand, HandState
@@ -132,26 +134,24 @@ def stack_jack_game(playerList):
     # current_player = playerList[0]
     active_game = StackJack(playerList)
     while True:
+
         try:
-            print("stack jack game starting")
             active_game.dealer_deal()
-            for x in playerList:
-                # x_player_hand_state = active_game.check_state(x.player_hand)
-                # print(x_player_hand_state)
-                while active_game.check_state(x.player_hand) == HandState.READY:
+            for count, value in enumerate(playerList):
+                while active_game.check_state(playerList[count].player_hand) == HandState.READY:
+                    print(f"what is this: {playerList[count].player_hand.state}")
+                    print(id(value.player_hand))
+                    print(f"\ncount: {count}")
+                    print(active_game.check_state(playerList[count]) == HandState.READY)
+                    print(active_game.check_state(playerList[count]))
                     option = active_game.choice_menu()
                     if option == 1:
-                        print(f"{x.name} card count: " + str(x.player_hand.get_card_count()))
-                        x.player_hand = active_game.hit
-                        print(f"{x.name} card count: " + str(x.player_hand.get_card_count()))
-                        print(x.player_hand.display_hand)
-                        print(x.player_hand.cal_hand_value)
+                        print(f"{playerList[count].name} card count: " + str(playerList[count].player_hand.get_card_count()))
+                        playerList[count].player_hand = active_game.hit
+                        print(f"{playerList[count].name} card count: " + str(playerList[count].player_hand.get_card_count()))
                     elif option == 2:
-                        x.player_hand.state = HandState.STAY
-                        print(x.player_hand.state)
-
-
-                    
+                        print(id(value.player_hand))
+                        value.player_hand.state = HandState.STAY
 
 
             # check player hand
@@ -176,6 +176,7 @@ def main():
     
     p1 = PlayerStandard("Jeff-p1")
     # p2 = PlayerStandard("Sara-p2")
+    print(id(p1.player_hand))
     current_players = [p1]
     stack_jack_game(current_players)
 

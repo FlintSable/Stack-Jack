@@ -10,29 +10,25 @@ class HandState(Enum):
 class Hand:
     MAX_CARDS_PER_HAND = 10
     def __init__(self):
-        self._state = HandState.READY
-        __my_cards = []
-        __num_cards = len(__my_cards)
+        self.__state = HandState.READY
+        self.__my_cards = []
+        self.__num_cards = len(self.__my_cards)
     
 
     @property
     def state(self):
-        if(self.cal_hand_value > 21):
-            return HandState.BUST
-        elif(self.cal_hand_value < 21):
-            return HandState.READY
-        elif(self.cal_hand_value == 21):
-            return HandState.STACKJACK
+        return self.__state
     
     @state.setter
     def state(self, newstate):
         print(newstate)
-        self._state = newstate
-        print(self._state)
-        return newstate
+        self.__state = newstate
+        print(self.__state)
+        print(id(self))
 
     def reset_hand(self):
         self.__my_cards = []
+        self.__state = HandState.READY
 
     def take_card(self, card):
         if(self.get_card_count() >= self.MAX_CARDS_PER_HAND):
