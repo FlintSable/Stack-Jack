@@ -71,6 +71,7 @@ class StackJack:
 
     def __init__(self, tablePlayers):
         # print(tablePlayers)
+        self._round = 1
         self._deck = Deck()
         self._table_players = tablePlayers
         self._dealer = PlayerDealer(self.deck, self._table_players, name="Delone")
@@ -110,10 +111,17 @@ class StackJack:
         menu_select = int(input("Enter choice: \n 1 - Hit\n 2 - Stay\n"))
         return menu_select
 
+    def reset_round(self):
+        self.dealer.player_hand.reset_hand()
+        for count, value in enumerate(self.table_players):
+            self.table_players[count].player_hand.reset_hand()
 
+        self._round += 1
+            
 
 
     def dealer_deal(self):
+        print(f"round: {self._round}")
         self.dealer.player_hand = self.deck.pop().data
         self.dealer.player_hand = self.deck.pop().data
         print(self.dealer.player_hand.get_hand[0].flip())
@@ -124,7 +132,7 @@ class StackJack:
         for x in self.table_players:
             x.player_hand = self.deck.pop().data
             x.player_hand = self.deck.pop().data
-            print(f"{x.name} card count: " + str(x.player_hand.get_card_count()))
+            # print(f"{x.name} card count: " + str(x.player_hand.get_card_count()))
             print(f"{x.name} hand: " + str(x.player_hand.get_hand[0].card))
             print(f"{x.name} hand: " + str(x.player_hand.get_hand[1].card))
             print(x.player_hand.display_hand)
@@ -141,11 +149,6 @@ def stack_jack_game(playerList):
             active_game.dealer_deal()
             for count, value in enumerate(playerList):
                 while active_game.check_state(playerList[count].player_hand) == HandState.READY:
-                    # print(f"what is this: {playerList[count].player_hand.state}")
-                    # print(id(value.player_hand))
-                    # print(f"\ncount: {count}")
-                    # print(active_game.check_state(playerList[count]) == HandState.READY)
-                    # print(active_game.check_state(playerList[count]))
                     option = active_game.choice_menu()
                     if option == 1:
                         # print(f"{playerList[count].name} card count: " + str(playerList[count].player_hand.get_card_count()))
@@ -165,7 +168,10 @@ def stack_jack_game(playerList):
                 print(playerList[count].player_hand.cal_hand_value)
                 # at this point all hands would be at the stay state
                 # now we want to reveal the dealer hands and compare them to the player hand
-            # need a little sequnce to reset the hand and hand states
+            
+            
+            
+            active_game.reset_round()
             # also maybe check for the deck count
 
         except(ValueError, IndexError) as e:
@@ -185,7 +191,7 @@ def main():
     
     p1 = PlayerStandard("Jeff-p1")
     # p2 = PlayerStandard("Sara-p2")
-    print(id(p1.player_hand))
+    # print(id(p1.player_hand))
     current_players = [p1]
     stack_jack_game(current_players)
 
