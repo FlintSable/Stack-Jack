@@ -111,7 +111,10 @@ class Card:
 
     def flip(self):
         # flip the card
-        self._face = 0
+        if self._face == 0:
+            self._face = 1
+        elif self._face == 1:
+            self._face = 0
         print(self._face)
 
     # maybe it does make sense to return a graphic card here
