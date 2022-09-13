@@ -21,10 +21,10 @@ class Hand:
     
     @state.setter
     def state(self, newstate):
-        print(newstate)
+        # print(newstate)
         self.__state = newstate
-        print(self.__state)
-        print(id(self))
+        # print(self.__state)
+        # print(id(self))
 
     def reset_hand(self):
         self.__my_cards = []
