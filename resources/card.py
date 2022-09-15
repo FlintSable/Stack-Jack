@@ -115,7 +115,7 @@ class Card:
             self._face = 1
         elif self._face == 1:
             self._face = 0
-        print(self._face)
+        # print(self._face)
 
     # maybe it does make sense to return a graphic card here
     def __str__(self):
