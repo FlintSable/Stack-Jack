@@ -42,14 +42,12 @@ class PlayerStandard(Player): # player - standard
         if name == "player_":
             name += str(random.randint(1,100))
         Player.__init__(self, name)
-        # player needs hond
 
 
 class PlayerDealer(Player): # player - dealer
     def __init__(self,playing_deck, table_players=[], name="Dealer"):
         if name != "Dealer":
             name += " Dealer"
-            print("Custom Dealer Name: " + name)
         Player.__init__(self, name)
         self._activeDeck = playing_deck
 
@@ -65,14 +63,7 @@ class PlayerDealer(Player): # player - dealer
     def deal(cls):
         print("cls: " + cls)
         return 0
-    
-        # this role is almost like a game class
-        # controls house hand
-        # deal to all players and self
-        # keeps track of turns
-        # 
-        # get next move from player
-        # show cards
+
 
 class StackJack:
 
@@ -137,22 +128,21 @@ class StackJack:
 
 
     def dealer_deal(self):
-        print(f"round: {self._round}")
+        print(f"round: {self._round}\n")
+        print(f"{self._dealer.name} Hand: ")
         self.dealer.player_hand = self.deck.pop().data
         self.dealer.player_hand = self.deck.pop().data
         self.dealer.player_hand.get_hand[0].flip()
         print_effect(self.dealer.player_hand.display_hand)
-        # print(self.dealer.player_hand.state)
+        print("\n")
 
 
         for x in self.table_players:
             x.player_hand = self.deck.pop().data
             x.player_hand = self.deck.pop().data
-            # print(f"{x.name} card count: " + str(x.player_hand.get_card_count()))
-            print(f"{x.name} hand: " + str(x.player_hand.get_hand[0].card))
-            print(f"{x.name} hand: " + str(x.player_hand.get_hand[1].card))
-            print(x.player_hand.display_hand)
-            print(x.player_hand.cal_hand_value)
+            print(f"{x.name}'s Hand: ")
+            print_effect(x.player_hand.display_hand)
+            print(f"Hand Total: {x.player_hand.cal_hand_value}")
 
 
     
@@ -172,11 +162,10 @@ def clear():
 
 
 def stack_jack_game(playerList):
-    # current_player = playerList[0]
+    clear()
     active_game = StackJack(playerList) # maybe pass the cursor object to this so that StackJack can have access to it
     while active_game.state == GameState.ACTIVE:
         try:
-            clear()
             active_game.dealer_deal()
             for count, value in enumerate(playerList):
                 while active_game.check_state(playerList[count].player_hand) == HandState.READY and active_game.state is not GameState.WRAPUP:
@@ -185,26 +174,32 @@ def stack_jack_game(playerList):
                         playerList[count].player_hand = active_game.hit
                         print_effect(playerList[count].player_hand.get_hand[-1].display_card)
                         print_effect("Hand total: " + str(playerList[count].player_hand.cal_hand_value) + "\n")
+                        print("check hand needed here as well")
+
                     elif option == 2:
                         value.player_hand.state = HandState.STAY
                     else:
                         print_effect("cashing out, thank you for playing\n")
                         print_effect("game stats")
                         active_game.wrap_game()
+                    print("if you made it here, we should check the hands")
 
             active_game.dealer.player_hand.get_hand[0].flip()
-            # print(active_game.dealer.player_hand.display_hand)
+            clear()
+            print("Dealer Reveal: ")
             print_effect(active_game.dealer.player_hand.display_hand)
 
             # were going to need a part that hits the hand if hes under 15 I think
 
             for count, value in enumerate(playerList):
+                print(f"\n{playerList[count].name}'s Hand: ")
                 print_effect(playerList[count].player_hand.display_hand)
                 print_effect(active_game.dealer.player_hand.cal_hand_value)
                 print_effect(playerList[count].player_hand.cal_hand_value)
             
+            # need to display winner
+            # then press key to continue to next round or quit
             active_game.reset_round()
-            # also maybe check for the deck count
 
         except(ValueError, IndexError) as e:
             print(e)
