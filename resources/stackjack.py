@@ -6,6 +6,8 @@ from secrets import choice
 from deck import *
 from hand import Hand, HandState
 import random
+from enum import Enum
+import sys, time, os
 # from abc import ABC, abstractmethod
 # this file should probably have the StackJack game class
 
@@ -29,6 +31,11 @@ class Player(Hand):
     @player_hand.setter
     def player_hand(self, card):
         self._hand.push(card)
+
+class GameState(Enum):
+    WRAPUP = 1
+    ACTIVE = 2
+
 
 class PlayerStandard(Player): # player - standard
     def __init__(self, name="player_"):
@@ -75,6 +82,7 @@ class StackJack:
         self._deck = Deck()
         self._table_players = tablePlayers
         self._dealer = PlayerDealer(self.deck, self._table_players, name="Delone")
+        self._state = GameState.ACTIVE
 
 
     @property
@@ -107,16 +115,24 @@ class StackJack:
     def hit(self):
         return self.deck.pop().data
     
+    @property
+    def state(self):
+        return self._state
+    
     def choice_menu(self):
-        menu_select = int(input("Enter choice: \n 1 - Hit\n 2 - Stay\n"))
+        menu_select = int(input("\n 1 - Hit\n 2 - Stay\n 3 - Cash out\nEnter choice: "))
         return menu_select
 
     def reset_round(self):
         self.dealer.player_hand.reset_hand()
         for count, value in enumerate(self.table_players):
             self.table_players[count].player_hand.reset_hand()
-
         self._round += 1
+    
+    def wrap_game(self):
+        self._state = GameState.WRAPUP
+        sys.exit()
+    
             
 
 
@@ -124,8 +140,8 @@ class StackJack:
         print(f"round: {self._round}")
         self.dealer.player_hand = self.deck.pop().data
         self.dealer.player_hand = self.deck.pop().data
-        print(self.dealer.player_hand.get_hand[0].flip())
-        print(self.dealer.player_hand.display_hand)
+        self.dealer.player_hand.get_hand[0].flip()
+        print_effect(self.dealer.player_hand.display_hand)
         # print(self.dealer.player_hand.state)
 
 
@@ -140,36 +156,52 @@ class StackJack:
 
 
     
+def print_effect(output_string):
+    for char in str(output_string):
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(0.05)
+
+def clear():
+    if os.name == 'nt':
+        _ = os.system('cls')
+ 
+    # for mac and linux(here, os.name is 'posix')
+    elif os.name == 'posix':
+        _ = os.system('clear')
+
 
 def stack_jack_game(playerList):
     # current_player = playerList[0]
-    active_game = StackJack(playerList)
-    while True: 
+    active_game = StackJack(playerList) # maybe pass the cursor object to this so that StackJack can have access to it
+    while active_game.state == GameState.ACTIVE:
         try:
+            clear()
             active_game.dealer_deal()
             for count, value in enumerate(playerList):
-                while active_game.check_state(playerList[count].player_hand) == HandState.READY:
+                while active_game.check_state(playerList[count].player_hand) == HandState.READY and active_game.state is not GameState.WRAPUP:
                     option = active_game.choice_menu()
                     if option == 1:
-                        # print(f"{playerList[count].name} card count: " + str(playerList[count].player_hand.get_card_count()))
                         playerList[count].player_hand = active_game.hit
-                        # print(f"{playerList[count].name} card count: " + str(playerList[count].player_hand.get_card_count()))
+                        print_effect(playerList[count].player_hand.get_hand[-1].display_card)
+                        print_effect("Hand total: " + str(playerList[count].player_hand.cal_hand_value) + "\n")
                     elif option == 2:
-                        print(id(value.player_hand))
                         value.player_hand.state = HandState.STAY
+                    else:
+                        print_effect("cashing out, thank you for playing\n")
+                        print_effect("game stats")
+                        active_game.wrap_game()
 
             active_game.dealer.player_hand.get_hand[0].flip()
-            print(active_game.dealer.player_hand.display_hand)
+            # print(active_game.dealer.player_hand.display_hand)
+            print_effect(active_game.dealer.player_hand.display_hand)
+
             # were going to need a part that hits the hand if hes under 15 I think
 
             for count, value in enumerate(playerList):
-                print(playerList[count].player_hand.display_hand)
-                print(active_game.dealer.player_hand.cal_hand_value)
-                print(playerList[count].player_hand.cal_hand_value)
-                # at this point all hands would be at the stay state
-                # now we want to reveal the dealer hands and compare them to the player hand
-            
-            
+                print_effect(playerList[count].player_hand.display_hand)
+                print_effect(active_game.dealer.player_hand.cal_hand_value)
+                print_effect(playerList[count].player_hand.cal_hand_value)
             
             active_game.reset_round()
             # also maybe check for the deck count

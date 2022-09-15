@@ -58,7 +58,7 @@ class Deck(Stack):
         # for x in predeck:
         #     print(x.data.card)
 
-        print("putting cards into deck: ")
+        # print("putting cards into deck: ")
         for x in random.sample(predeck, len(predeck)):
             self.push(x)
             # print(x.data.card)
