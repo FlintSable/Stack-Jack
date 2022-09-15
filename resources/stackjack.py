@@ -16,9 +16,8 @@ class Player(Hand):
         Hand.__init__(self)
         self._name = name
         self._hand = Hand()
-        
-        # Stack.__init__(self)
-        # maybe put the hand up here, does not need to be a stack
+        self._wins = 0
+        self._balance = 0
     
     @property
     def name(self):
@@ -96,12 +95,6 @@ class StackJack:
     def table_players(self,tablePlayers):
         self._table_players = tablePlayers
 
-    def check_state(self, player_hand):
-        return player_hand.state
-    
-    def compare_hands(self, dealer_hand, player_hand):
-        pass
-
     @property
     def hit(self):
         return self.deck.pop().data
@@ -109,6 +102,27 @@ class StackJack:
     @property
     def state(self):
         return self._state
+
+    def check_state(self, player_hand):
+        return player_hand.state
+    
+    def compare_hands(self, dealer_hand, player_hand):
+        if dealer_hand.state == HandState.STAY and player_hand.state == HandState.STAY:
+            dealer_total = dealer_hand.cal_hand_value
+            player_total = player_hand.cal_hand_value
+            print(f"dealer total: {dealer_total}")
+            print(f"player total: {player_total}")
+
+            if dealer_total > 21 and player_total < 21:
+                return 1
+            elif dealer_total < 21 and player_total > 21:
+                return 0
+            elif dealer_total > player_total:
+                return 0
+            elif dealer_total < player_total:
+                return 1
+            else: 
+                return None
     
     def choice_menu(self):
         menu_select = int(input("\n 1 - Hit\n 2 - Stay\n 3 - Cash out\nEnter choice: "))
@@ -123,9 +137,6 @@ class StackJack:
     def wrap_game(self):
         self._state = GameState.WRAPUP
         sys.exit()
-    
-            
-
 
     def dealer_deal(self):
         print(f"round: {self._round}\n")
@@ -134,6 +145,7 @@ class StackJack:
         self.dealer.player_hand = self.deck.pop().data
         self.dealer.player_hand.get_hand[0].flip()
         print_effect(self.dealer.player_hand.display_hand)
+        self.dealer.player_hand.state = HandState.STAY
         print("\n")
 
 
@@ -168,13 +180,17 @@ def stack_jack_game(playerList):
         try:
             active_game.dealer_deal()
             for count, value in enumerate(playerList):
-                while active_game.check_state(playerList[count].player_hand) == HandState.READY and active_game.state is not GameState.WRAPUP:
+                while active_game.check_state(value.player_hand) == HandState.READY and active_game.state is not GameState.WRAPUP:
                     option = active_game.choice_menu()
                     if option == 1:
                         playerList[count].player_hand = active_game.hit
                         print_effect(playerList[count].player_hand.get_hand[-1].display_card)
-                        print_effect("Hand total: " + str(playerList[count].player_hand.cal_hand_value) + "\n")
-                        print("check hand needed here as well")
+                        bust_check = playerList[count].player_hand.cal_hand_value
+                        if bust_check > 21:
+                            print(f"Over 21\nHand Total: {bust_check}")
+                            value.player_hand.state = HandState.BUST
+                        else:
+                            print(f"Hand Total: {bust_check}")
 
                     elif option == 2:
                         value.player_hand.state = HandState.STAY
@@ -182,11 +198,10 @@ def stack_jack_game(playerList):
                         print_effect("cashing out, thank you for playing\n")
                         print_effect("game stats")
                         active_game.wrap_game()
-                    print("if you made it here, we should check the hands")
+                input("Press enter to reveal hands ...")
 
             active_game.dealer.player_hand.get_hand[0].flip()
-            clear()
-            print("Dealer Reveal: ")
+            print(f"round {active_game._round} Dealer Reveal: ")
             print_effect(active_game.dealer.player_hand.display_hand)
 
             # were going to need a part that hits the hand if hes under 15 I think
@@ -197,9 +212,17 @@ def stack_jack_game(playerList):
                 print_effect(active_game.dealer.player_hand.cal_hand_value)
                 print_effect(playerList[count].player_hand.cal_hand_value)
             
-            # need to display winner
-            # then press key to continue to next round or quit
+            for count, value in enumerate(playerList):
+                round_winner = active_game.compare_hands(active_game.dealer.player_hand, value.player_hand)
+                if round_winner == 1:
+                    winner = f"{value.name}"
+                elif round_winner == 0:
+                    winner = f"{active_game.dealer.name}"
+                print(f"round {active_game._round} winner is {winner}")
+            input("Press enter to continue to next round ...")
             active_game.reset_round()
+            clear()
+
 
         except(ValueError, IndexError) as e:
             print(e)
