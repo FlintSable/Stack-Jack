@@ -21,10 +21,8 @@ class Hand:
     
     @state.setter
     def state(self, newstate):
-        # print(newstate)
         self.__state = newstate
-        # print(self.__state)
-        # print(id(self))
+
 
     def reset_hand(self):
         self.__my_cards = []
@@ -64,11 +62,12 @@ class Hand:
             display_array += card.display_card
         return ''.join(display_array)
 
-            
-
 
     def __str__(self):
-        return ('\tHand = {} \n\tnum cards = {}'.format(self.get_hand(), self.get_card_count()))
+        real_hand = ''
+        for item in self.get_hand:
+            real_hand = real_hand + item + ' '
+        return (f"\tHand = {real_hand} \n\tnum cards = {self.get_card_count()}")
         
     def __init__(self):
         self.reset_hand()
