@@ -187,7 +187,7 @@ def stack_jack_game(playerList):
                         print_effect(playerList[count].player_hand.get_hand[-1].display_card)
                         bust_check = playerList[count].player_hand.cal_hand_value
                         if bust_check > 21:
-                            print(f"Over 21\nHand Total: {bust_check}")
+                            print(f"Over twenty one!\nHand Total: {bust_check}")
                             value.player_hand.state = HandState.BUST
                         else:
                             print(f"Hand Total: {bust_check}")
@@ -214,6 +214,7 @@ def stack_jack_game(playerList):
             
             for count, value in enumerate(playerList):
                 round_winner = active_game.compare_hands(active_game.dealer.player_hand, value.player_hand)
+                print(f"round_winner: {round_winner}")
                 if round_winner == 1:
                     winner = f"{value.name}"
                 elif round_winner == 0:
