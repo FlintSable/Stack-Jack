@@ -113,9 +113,9 @@ class StackJack:
             print(f"dealer total: {dealer_total}")
             print(f"player total: {player_total}")
 
-            if dealer_total > 21 and player_total < 21:
+            if dealer_total > 21 and player_total <= 21:
                 return 1
-            elif dealer_total < 21 and player_total > 21:
+            elif dealer_total <= 21 and player_total > 21:
                 return 0
             elif dealer_total > player_total:
                 return 0
@@ -203,18 +203,19 @@ def stack_jack_game(playerList):
             active_game.dealer.player_hand.get_hand[0].flip()
             print(f"round {active_game._round} Dealer Reveal: ")
             print_effect(active_game.dealer.player_hand.display_hand)
+            
+            while active_game.dealer.player_hand.cal_hand_value <= 16:
+                active_game.dealer.player_hand = active_game.hit
+                print_effect(active_game.dealer.player_hand.get_hand[-1].display_card) 
 
-            # were going to need a part that hits the hand if hes under 15 I think
 
             for count, value in enumerate(playerList):
                 print(f"\n{playerList[count].name}'s Hand: ")
                 print_effect(playerList[count].player_hand.display_hand)
-                print_effect(active_game.dealer.player_hand.cal_hand_value)
-                print_effect(playerList[count].player_hand.cal_hand_value)
+
             
             for count, value in enumerate(playerList):
                 round_winner = active_game.compare_hands(active_game.dealer.player_hand, value.player_hand)
-                print(f"round_winner: {round_winner}")
                 if round_winner == 1:
                     winner = f"{value.name}"
                 elif round_winner == 0:
