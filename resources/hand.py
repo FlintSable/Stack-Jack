@@ -40,7 +40,8 @@ class Hand:
 
     @property    
     def cal_hand_value(self):
-        return sum([card_value.suit for card_value in self.get_hand])
+        # need to adjust the calculations because J,Q,K are not 10
+        return sum([card_value.rank for card_value in self.get_hand])
 
     
     def push(self, card):

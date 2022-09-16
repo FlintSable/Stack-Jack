@@ -49,10 +49,10 @@ class Deck(Stack):
                         CardValue.JACK,
                         CardValue.QUEEN,
                         CardValue.KING]
-        spade_cards = [Node(Card(x,CardSuit.SPADES)) for x in cardvalues]
-        heart_cards = [Node(Card(x,CardSuit.HEARTS)) for x in cardvalues]
-        diamond_cards = [Node(Card(x,CardSuit.DIAMONDS)) for x in cardvalues]
-        clubs_cards = [Node(Card(x,CardSuit.CLUBS)) for x in cardvalues]
+        spade_cards = [Node(Card(x, CardSuit.SPADES, x.name)) for x in cardvalues]
+        heart_cards = [Node(Card(x, CardSuit.HEARTS, x.name)) for x in cardvalues]
+        diamond_cards = [Node(Card(x, CardSuit.DIAMONDS, x.name)) for x in cardvalues]
+        clubs_cards = [Node(Card(x, CardSuit.CLUBS, x.name)) for x in cardvalues]
         predeck = spade_cards + heart_cards + diamond_cards + clubs_cards
 
         # for x in predeck:
@@ -61,7 +61,7 @@ class Deck(Stack):
         # print("putting cards into deck: ")
         for x in random.sample(predeck, len(predeck)):
             self.push(x)
-            # print(x.data.card)
+            # print(x.data)
         
         # just takeing a look at the data, data is still in stack
         # print("top: ")

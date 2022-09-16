@@ -154,6 +154,8 @@ class StackJack:
             x.player_hand = self.deck.pop().data
             print(f"{x.name}'s Hand: ")
             print_effect(x.player_hand.display_hand)
+            print(f"Cards: {x.player_hand.get_hand[0].card}")
+            print(f"Cards: {x.player_hand.get_hand[1].card}")
             print(f"Hand Total: {x.player_hand.cal_hand_value}")
 
 
