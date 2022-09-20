@@ -107,7 +107,7 @@ class StackJack:
         return player_hand.state
     
     def compare_hands(self, dealer_hand, player_hand):
-        if dealer_hand.state == HandState.STAY and player_hand.state == HandState.STAY:
+        if (dealer_hand.state == HandState.STAY and player_hand.state == HandState.STAY) or (dealer_hand.state == HandState.BUST or player_hand.state == HandState.BUST):
             dealer_total = dealer_hand.cal_hand_value
             player_total = player_hand.cal_hand_value
             print(f"dealer total: {dealer_total}")
@@ -215,14 +215,21 @@ def stack_jack_game(playerList):
                 print(f"\n{playerList[count].name}'s Hand: ")
                 print_effect(playerList[count].player_hand.display_hand)
 
-            
+            round_winner = None
             for count, value in enumerate(playerList):
                 round_winner = active_game.compare_hands(active_game.dealer.player_hand, value.player_hand)
+                print(f"round winner: {round_winner}")
                 if round_winner == 1:
                     winner = f"{value.name}"
                 elif round_winner == 0:
                     winner = f"{active_game.dealer.name}"
-                print(f"round {active_game._round} winner is {winner}")
+                else:
+                    winner = None
+                
+                if winner:
+                    print(f"round {active_game._round} winner is {winner}")
+                else:
+                    print("No winner this round")
             input("Press enter to continue to next round ...")
             active_game.reset_round()
             clear()
